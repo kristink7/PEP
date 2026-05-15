@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEP Parent Journey Map — Vertex Education</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:      #1B2A4A;
+    --navy-md:   #4A6080;
+    --navy-lt:   #E8EEF4;
+    --teal:      #3AA8A8;
+    --teal-dk:   #2A7F7F;
+    --teal-lt:   #E0F4F4;
+    --amber:     #E8A020;
+    --amber-lt:  #FEF3C7;
+    --green:     #2D9E6B;
+    --green-lt:  #D1FAE5;
+    --slate:     #8BA0B8;
+    --white:     #FFFFFF;
+    --body-bg:   #F2F5F9;
+    --red:       #DC2626;
+    --red-lt:    #FEE2E2;
+    --purp:      #7C3AED;
+    --purp-lt:   #EDE9FE;
+    --purp-text: #3730a3;
+    --orange:    #EA580C;
+    --orange-lt: #FFEDD5;
+    --v1-color:  #3AA8A8;
+    --v2-color:  #2D9E6B;
+    --v3-color:  #8BA0B8;
+    --pep-glow:  rgba(58,168,168,0.18);
+  }
+
+  body {
+    font-family: 'DM Sans', 'Trebuchet MS', sans-serif;
+    background: var(--body-bg);
+    color: var(--navy);
+    padding: 28px 24px 56px;
+    min-width: 980px;
+  }
+
+  /* ── Page header ── */
+  .page-header {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 22px 28px 18px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .page-header .eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 5px;
+  }
+  .page-header h1 {
+    font-size: 20px; font-weight: 600; color: var(--white); line-height: 1.2;
+  }
+  .page-header .meta {
+    font-size: 11px; color: var(--slate); text-align: right; line-height: 1.7;
+  }
+
+  /* ── Tabs ── */
+  .tab-bar {
+    display: flex;
+    background: #111e33;
+    border-bottom: 2px solid #0d1829;
+    border-radius: 0;
+  }
+  .tab-btn {
+    padding: 11px 28px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--slate);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: color .2s, border-color .2s;
+  }
+  .tab-btn:hover { color: var(--white); }
+  .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+  .tab-btn.active.pep-tab { color: #a78bfa; border-bottom-color: #a78bfa; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── Section wrapper ── */
+  .journey-section {
+    margin-bottom: 28px;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid #d4dde8;
+    border-top: none;
+    overflow: hidden;
+  }
+  .journey-section:first-of-type { border-top: none; }
+
+  /* Journey block within a section */
+  .journey-block {
+    border-bottom: 2px solid #e2e8f0;
+    overflow: hidden;
+  }
+  .journey-block:last-child { border-bottom: none; }
+
+  /* Channel header */
+  .channel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--navy);
+  }
+  .channel-icon {
+    font-size: 16px;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .channel-title {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .07em; text-transform: uppercase;
+    color: var(--white);
+  }
+  .channel-subtitle {
+    font-size: 11px; color: var(--slate); margin-left: auto;
+    font-style: italic;
+  }
+  .channel-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: .06em;
+    padding: 2px 8px; border-radius: 10px; text-transform: uppercase;
+  }
+  .badge-v1 { background: var(--teal); color: white; }
+  .badge-v2 { background: var(--green); color: white; }
+  .badge-v3 { background: var(--slate); color: white; }
+
+  /* Phase / step row */
+  .phase-row {
+    display: flex;
+    padding-left: 88px;
+    background: #1a2640;
+  }
+  .phase-cell {
+    flex: 1; text-align: center;
+    font-size: 9px; font-weight: 700; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--slate);
+    padding: 6px 2px 8px; position: relative;
+  }
+  .phase-cell::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 6px; right: 6px;
+    height: 2px; border-radius: 1px;
+  }
+  .ph-teal::after  { background: var(--teal); }
+  .ph-green::after { background: var(--green); }
+  .ph-amber::after { background: var(--amber); }
+  .ph-purp::after  { background: #a78bfa; }
+  .ph-slate::after { background: var(--slate); }
+
+  .step-row {
+    display: flex; padding-left: 88px;
+    background: #f8fafc; border-bottom: 1px solid #e2e8f0;
+  }
+  .step-num {
+    flex: 1; text-align: center;
+    font-size: 9px; font-weight: 600; color: var(--slate);
+    padding: 3px 2px; border-right: 1px solid #e2e8f0;
+  }
+  .step-num:last-child { border-right: none; }
+
+  /* Branch label */
+  .branch-row {
+    display: flex; padding-left: 88px;
+    background: #f0f4f8; border-bottom: 1px solid #e2e8f0;
+  }
+  .branch-cell {
+    flex: 1; text-align: center;
+    font-size: 9px; font-weight: 600; color: var(--navy-md);
+    padding: 3px 2px; border-right: 1px solid #e2e8f0;
+    letter-spacing: .04em; text-transform: uppercase;
+  }
+  .branch-cell:last-child { border-right: none; }
+  .branch-cell.br-a { color: var(--teal-dk); background: rgba(58,168,168,.07); }
+  .branch-cell.br-b { color: var(--orange); background: rgba(234,88,12,.05); }
+
+  /* Swim lane */
+  .lane { display: flex; align-items: stretch; border-bottom: 1px solid #e2e8f0; }
+  .lane:last-child { border-bottom: none; }
+
+  .lane-label {
+    width: 88px; min-width: 88px;
+    display: flex; flex-direction: column;
+    align-items: flex-end; justify-content: center;
+    padding: 6px 8px 6px 4px; gap: 2px;
+    border-right: 2px solid #e2e8f0;
+    background: #f8fafc;
+  }
+  .ll-icon { font-size: 14px; }
+  .ll-txt {
+    font-size: 9.5px; font-weight: 700; color: var(--navy-md);
+    text-align: right; line-height: 1.2; letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+
+  .lane-cells { display: flex; flex: 1; }
+
+  /* Cell */
+  .cell {
+    flex: 1; padding: 7px 4px;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid #e2e8f0; min-height: 72px;
+    position: relative;
+  }
+  .cell:last-child { border-right: none; }
+  .cell-in {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 3px; width: 100%;
+  }
+  .ci { font-size: 17px; line-height: 1; }
+  .clbl {
+    font-size: 10px; font-weight: 600; color: var(--navy);
+    text-align: center; line-height: 1.25;
+  }
+  .csub {
+    font-size: 9px; color: var(--navy-md);
+    text-align: center; line-height: 1.2;
+  }
+  .chip {
+    font-size: 8.5px; font-weight: 700;
+    padding: 1px 5px; border-radius: 3px;
+    letter-spacing: .03em; white-space: nowrap;
+  }
+
+  /* Cell backgrounds */
+  .bg-parent  { background: #EBF4FD; }
+  .bg-staff   { background: #EDFAF4; }
+  .bg-system  { background: #FEF9EC; }
+  .bg-output  { background: #FDF0F7; }
+  .bg-dash    { background: #F3F0FF; }
+  .bg-empty   { background: #f8fafc; opacity: .55; }
+  .bg-friction { background: #FEF2F2; }
+
+  /* Chip colors */
+  .ch-parent { background: #dbeafe; color: #1e3a5f; }
+  .ch-staff  { background: #d1fae5; color: #064e3b; }
+  .ch-system { background: #fef3c7; color: #78350f; }
+  .ch-output { background: #fce7f3; color: #831843; }
+  .ch-dash   { background: #ede9fe; color: #3730a3; }
+  .ch-pep    { background: #ccfbf1; color: #134e4a; }
+  .ch-v1     { background: #ccfbf1; color: #134e4a; }
+  .ch-v2     { background: #d1fae5; color: #064e3b; }
+  .ch-v3     { background: #e0f2fe; color: #0c4a6e; }
+
+  /* Friction indicators (current state) */
+  .friction-badge {
+    position: absolute; top: 4px; right: 4px;
+    font-size: 9px; font-weight: 700;
+    padding: 1px 4px; border-radius: 3px;
+    line-height: 1.3;
+  }
+  .fr-manual   { background: #fef3c7; color: #92400e; }
+  .fr-norecord { background: #fee2e2; color: #991b1b; }
+  .fr-repeat   { background: #fce7f3; color: #831843; }
+
+  /* PEP state — future state cells */
+  .cell-pep-new {
+    background: linear-gradient(135deg, #e0f4f4 0%, #f0fdfb 100%);
+    border-left: 3px solid var(--teal);
+    box-shadow: inset 0 0 0 1px rgba(58,168,168,.25);
+  }
+  .cell-pep-replace {
+    background: #f8fafc;
+    opacity: .7;
+  }
+  .cell-pep-replace .clbl { text-decoration: line-through; color: var(--slate); }
+  .cell-pep-v2 {
+    background: linear-gradient(135deg, #e8faf2 0%, #f0fdf8 100%);
+    border-left: 3px solid var(--green);
+  }
+  .cell-pep-v3 {
+    background: #f8f8f8;
+    border-left: 3px solid var(--slate);
+    opacity: .8;
+  }
+  .pep-new-badge {
+    font-size: 8px; font-weight: 800; letter-spacing: .06em;
+    padding: 1px 5px; border-radius: 3px; text-transform: uppercase;
+  }
+  .pep-badge-v1  { background: var(--teal); color: white; }
+  .pep-badge-v2  { background: var(--green); color: white; }
+  .pep-badge-v3  { background: var(--slate); color: white; }
+  .pep-badge-fnd { background: #134e4a; color: #ccfbf1; }
+  .pep-badge-dpv { background: #065f46; color: #d1fae5; }
+
+  /* Dashboard metrics row */
+  .dash-section-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px; background: #1a1040;
+    border-top: 2px solid #2d1f6e;
+  }
+  .dash-section-header span {
+    font-size: 9.5px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: #a78bfa;
+  }
+  .dash-section-header .ds-line { flex: 1; height: 1px; background: #3d2e7c; }
+
+  .dash-metrics-row {
+    display: flex; padding-left: 88px;
+    background: #1e1350;
+  }
+  .dash-metric-cell {
+    flex: 1; padding: 7px 5px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 2px;
+    border-right: 1px solid #2d1f6e;
+    min-height: 58px; justify-content: center;
+  }
+  .dash-metric-cell:last-child { border-right: none; }
+  .dm-icon { font-size: 14px; }
+  .dm-label {
+    font-size: 8.5px; font-weight: 700; color: #c4b5fd;
+    text-align: center; line-height: 1.2; letter-spacing: .03em;
+  }
+  .dm-metric {
+    font-size: 8px; color: #7c6fab; text-align: center; line-height: 1.2;
+  }
+  .dm-empty { opacity: 0; }
+  .dash-lane-label {
+    width: 88px; min-width: 88px;
+    display: flex; flex-direction: column;
+    align-items: flex-end; justify-content: center;
+    padding: 6px 8px; gap: 2px;
+    border-right: 1px solid #2d1f6e;
+    background: #160d40;
+  }
+  .dl-icon { font-size: 13px; }
+  .dl-txt {
+    font-size: 8.5px; font-weight: 700; color: #7c6fab;
+    text-align: right; line-height: 1.2;
+    text-transform: uppercase; letter-spacing: .03em;
+  }
+
+  /* Section divider between journeys */
+  .journey-divider {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 14px; background: #f0f4f8;
+    border-top: 1px solid #d4dde8;
+    border-bottom: 1px solid #d4dde8;
+  }
+  .jd-icon { font-size: 16px; }
+  .jd-title {
+    font-size: 11px; font-weight: 700; color: var(--navy);
+    letter-spacing: .04em;
+  }
+  .jd-sub {
+    font-size: 10px; color: var(--navy-md); margin-left: 4px;
+  }
+  .jd-line { flex: 1; height: 1px; background: #d4dde8; }
+  .jd-badge {
+    font-size: 9px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px; border: 1px solid;
+  }
+  .jd-v1 { background: #e0f4f4; color: var(--teal-dk); border-color: var(--teal); }
+  .jd-v2 { background: #d1fae5; color: #065f46; border-color: var(--green); }
+  .jd-v3 { background: #f1f5f9; color: var(--slate); border-color: var(--slate); }
+
+  /* Outer section card */
+  .section-card {
+    background: white;
+    border: 1px solid #d4dde8;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .section-card-header {
+    background: var(--navy);
+    padding: 12px 18px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid #0d1829;
+  }
+  .sch-icon { font-size: 20px; }
+  .sch-title {
+    font-size: 13px; font-weight: 700; color: white; letter-spacing: .03em;
+  }
+  .sch-sub { font-size: 11px; color: var(--slate); margin-left: auto; font-style: italic; }
+
+  /* Legend */
+  .legend {
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+    padding: 10px 14px; background: white;
+    border: 1px solid #d4dde8; border-radius: 8px;
+    font-size: 10.5px; color: var(--navy-md); margin-top: 20px;
+  }
+  .legend-group { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .legend-group-label {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--slate); margin-right: 2px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0; }
+  .legend-sep { width: 1px; height: 22px; background: #d4dde8; }
+
+  /* Friction legend */
+  .fr-legend {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 9px; font-weight: 700;
+    padding: 1px 5px; border-radius: 3px;
+  }
+
+  /* PEP legend items */
+  .pep-legend-bar {
+    width: 14px; height: 14px; border-radius: 3px;
+    border-left: 3px solid var(--teal);
+    background: linear-gradient(135deg, #e0f4f4, #f0fdfb);
+  }
+  .pep-legend-bar-v2 {
+    width: 14px; height: 14px; border-radius: 3px;
+    border-left: 3px solid var(--green);
+    background: linear-gradient(135deg, #e8faf2, #f0fdf8);
+  }
+  .pep-legend-bar-v3 {
+    width: 14px; height: 14px; border-radius: 3px;
+    border-left: 3px solid var(--slate);
+    background: #f8f8f8;
+  }
+
+  /* Dashboard panel */
+  .dashboard-panel {
+    background: #110c38;
+    border: 1px solid #2d1f6e;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 24px;
+  }
+  .dp-header {
+    background: #1a1040;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid #2d1f6e;
+  }
+  .dp-header h3 { font-size: 13px; font-weight: 700; color: #a78bfa; letter-spacing: .04em; }
+  .dp-header .dp-sub { font-size: 10px; color: #7c6fab; margin-left: auto; }
+  .dp-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: #2d1f6e; padding: 0;
+  }
+  .dp-metric {
+    background: #16103f;
+    padding: 14px 12px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .dp-metric-icon { font-size: 20px; }
+  .dp-metric-name {
+    font-size: 11px; font-weight: 700; color: #c4b5fd; line-height: 1.2;
+  }
+  .dp-metric-desc {
+    font-size: 9.5px; color: #7c6fab; line-height: 1.4;
+  }
+  .dp-metric-source {
+    font-size: 8.5px; font-weight: 700; color: #4c3ea0;
+    text-transform: uppercase; letter-spacing: .05em;
+    margin-top: 2px;
+  }
+  .dp-metric-chips {
+    display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px;
+  }
+  .dp-chip {
+    font-size: 8px; font-weight: 700;
+    padding: 1px 5px; border-radius: 3px;
+    background: #2d1f6e; color: #a78bfa;
+    letter-spacing: .03em;
+  }
+
+  /* Footer */
+  .page-footer {
+    margin-top: 20px; font-size: 9px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--slate); text-align: left;
+  }
+
+  /* Out-of-scope overlay */
+  .cell-oos {
+    background: repeating-linear-gradient(
+      45deg, #f8f8f8, #f8f8f8 4px, #f0f0f0 4px, #f0f0f0 8px
+    );
+    opacity: .6;
+  }
+
+  /* Connector arrow (visual only) */
+  .arrow-cell {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .arrow-right {
+    font-size: 16px; color: var(--slate); line-height: 1;
+  }
+
+  @media print {
+    body { padding: 10px; background: white; min-width: unset; }
+    .tab-bar { display: none; }
+    .tab-content { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div>
+    <div class="eyebrow">Parent Experience Project — PEP · July 2026 MVP</div>
+    <h1>Parent Interaction Journey Map</h1>
+    <div style="font-size:13px;color:var(--slate);margin-top:4px;font-weight:400">Three channels · Six interaction types · Current state vs. With PEP</div>
+  </div>
+  <div class="meta">
+    Audience: Engineers · BI Analysts · PM<br>
+    Vertex Education · Legacy Traditional Schools<br>
+    Prepared May 2026
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('current')">📋 Current State</button>
+  <button class="tab-btn pep-tab" onclick="switchTab('pep')">🚀 With PEP — MVP July 2026</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TAB 1: CURRENT STATE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="tab-current" class="tab-content active">
+
+  <!-- ────────────────────────────────────────────────────── -->
+  <!-- CHANNEL 1: INBOUND CALL -->
+  <!-- ────────────────────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="sch-icon">📞</span>
+      <span class="sch-title">Channel 1 — Inbound Call</span>
+      <span class="sch-sub">Two branches: Attendance reporting · General inquiry / discipline callback</span>
+    </div>
+
+    <!-- BRANCH A: ATTENDANCE -->
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">📅</span>
+        <span class="jd-title">Branch A — Attendance Reporting</span>
+        <span class="jd-sub">Parent calls to report student absence</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">Initiation</div>
+        <div class="phase-cell ph-teal" style="flex:1">Routing</div>
+        <div class="phase-cell ph-amber" style="flex:1">Message Left</div>
+        <div class="phase-cell ph-amber" style="flex:1">Staff Action</div>
+        <div class="phase-cell ph-amber" style="flex:1">Attendance Marked</div>
+        <div class="phase-cell ph-amber" style="flex:1">Parent Follow-up</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div><div class="step-num">6</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Calls front office</span><span class="csub">Before school</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">🎙️</span><span class="clbl">Leaves voicemail</span><span class="csub">No confirmation</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📵</span><span class="clbl">Gets absence alert</span><span class="csub">Already reported!</span></div><div class="friction-badge fr-norecord">🔴 No record</div></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">🔀</span><span class="clbl">Transfer to attendance line</span><span class="chip ch-staff">Secretary</span></div><div class="friction-badge fr-manual">⚠️ Manual</div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">🎧</span><span class="clbl">Listen to voicemail</span><span class="chip ch-staff">Registrar</span></div><div class="friction-badge fr-manual">⚠️ Manual</div></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">✏️</span><span class="clbl">Mark attendance</span><span class="chip ch-staff">Registrar</span></div></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Parent calls back</span><span class="chip ch-staff">Secretary</span></div><div class="friction-badge fr-repeat">🔁 Repeat</div></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📲</span><span class="chip ch-system">VOIP / Phone</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🔀</span><span class="chip ch-system">Manual transfer</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🎙️</span><span class="chip ch-system">VOIP Voicemail</span><span class="csub">Isolated silo</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🔔</span><span class="chip ch-system">PowerSchool</span><span class="csub">Auto absence alert</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">✏️</span><span class="chip ch-system">PowerSchool</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📞</span><span class="chip ch-system">VOIP</span><span class="csub">Second inbound call</span></div></div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📳</span><span class="clbl">Rings to attendance line</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🎙️</span><span class="clbl">Voicemail recorded</span><span class="csub">No owner · No SLA</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">⚡</span><span class="clbl">Absence alert fires</span><span class="csub">Before VM retrieved</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">👂</span><span class="clbl">Absence known</span><span class="csub">Not yet logged</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">✅</span><span class="clbl">Absence in PS</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">😤</span><span class="clbl">Parent must call again</span><span class="csub">Trust eroded</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics Generated at These Steps</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><span class="dm-icon">📵</span><span class="dm-label">Abandonment Rate</span><span class="dm-metric">Step 1 — VOIP</span></div>
+          <div class="dash-metric-cell"><div class="dm-label dm-empty">—</div></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⏱️</span><span class="dm-label">VM Aging</span><span class="dm-metric">Step 3 — No baseline</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🔁</span><span class="dm-label">Repeat Contact Rate</span><span class="dm-metric">Step 4 — untracked</span></div>
+          <div class="dash-metric-cell"><div class="dm-label dm-empty">—</div></div>
+          <div class="dash-metric-cell"><span class="dm-icon">😤</span><span class="dm-label">Escalation Rate</span><span class="dm-metric">Step 6 — untracked</span></div>
+        </div>
+      </div>
+    </div><!-- /branch A -->
+
+    <!-- BRANCH B: GENERAL / DISCIPLINE -->
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">📣</span>
+        <span class="jd-title">Branch B — General Inquiry &amp; Discipline Callback</span>
+        <span class="jd-sub">Parent calls back on open issue · Principal called first</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">Outbound Attempt</div>
+        <div class="phase-cell ph-amber" style="flex:1">No Answer</div>
+        <div class="phase-cell ph-amber" style="flex:1">Parent Calls Back</div>
+        <div class="phase-cell ph-amber" style="flex:1">Front Office</div>
+        <div class="phase-cell ph-amber" style="flex:1">Outcome</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📵</span><span class="clbl">Missed call from school</span><span class="csub">No context in VM</span></div></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Calls back</span><span class="csub">Reaches front office</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">😕</span><span class="clbl">No resolution</span><span class="csub">Takes another message</span></div></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Principal calls parent</span><span class="chip ch-staff">Principal</span></div></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">🎙️</span><span class="clbl">Leaves voicemail</span><span class="csub">No log created</span></div><div class="friction-badge fr-norecord">🔴 No record</div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">🤷</span><span class="clbl">Cannot find context</span><span class="chip ch-staff">Secretary</span><span class="csub">Who called? About what?</span></div><div class="friction-badge fr-manual">⚠️ Manual</div></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">📝</span><span class="clbl">Takes message again</span><span class="chip ch-staff">Secretary</span></div><div class="friction-badge fr-repeat">🔁 Repeat</div></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📲</span><span class="chip ch-system">VOIP outbound</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🎙️</span><span class="chip ch-system">VOIP voicemail</span><span class="csub">No CRM link</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📲</span><span class="chip ch-system">VOIP inbound</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🔲</span><span class="chip ch-system">No screen pop</span><span class="csub">Blank slate</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📝</span><span class="chip ch-system">Paper / memory</span></div></div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Call attempted</span><span class="csub">No log anywhere</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🔇</span><span class="clbl">VM left</span><span class="csub">No record of attempt</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📳</span><span class="clbl">Front office receives call</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">❌</span><span class="clbl">No context · No script</span><span class="csub">Staff cannot help</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">🔄</span><span class="clbl">Issue unresolved</span><span class="csub">Parent unhelped</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics Generated at These Steps</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><div class="dm-label dm-empty">—</div></div>
+          <div class="dash-metric-cell"><span class="dm-icon">📵</span><span class="dm-label">Call Attempt Log</span><span class="dm-metric">Untracked today</span></div>
+          <div class="dash-metric-cell"><div class="dm-label dm-empty">—</div></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🔁</span><span class="dm-label">Repeat Contact Rate</span><span class="dm-metric">Step 4 — untracked</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">📉</span><span class="dm-label">FCR Rate</span><span class="dm-metric">Step 5 — 0% captured</span></div>
+        </div>
+      </div>
+    </div><!-- /branch B -->
+  </div><!-- /channel 1 card -->
+
+  <!-- ────────────────────────────────────────────────────── -->
+  <!-- CHANNEL 2: EMAIL -->
+  <!-- ────────────────────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="sch-icon">📧</span>
+      <span class="sch-title">Channel 2 — Email</span>
+      <span class="sch-sub">Example use case: Safety / Hold inquiry — parent emails principal who is OOO</span>
+    </div>
+
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">🔒</span>
+        <span class="jd-title">Safety / Hold Inquiry (Email)</span>
+        <span class="jd-sub">Parent emails principal · Principal OOO · Email enters personal inbox silo</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">Parent Sends</div>
+        <div class="phase-cell ph-amber" style="flex:1">Email Lands</div>
+        <div class="phase-cell ph-amber" style="flex:1">Sits Unseen</div>
+        <div class="phase-cell ph-amber" style="flex:1">Parent Escalates</div>
+        <div class="phase-cell ph-amber" style="flex:1">Staff Scrambles</div>
+        <div class="phase-cell ph-amber" style="flex:1">Outcome</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div><div class="step-num">6</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📧</span><span class="clbl">Emails principal</span><span class="csub">Worried about HOLD msg</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">⏳</span><span class="clbl">Waits hours</span><span class="csub">No acknowledgment</span></div></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Calls in to follow up</span><span class="csub">Repeats the question</span></div><div class="friction-badge fr-repeat">🔁 Repeat</div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">😟</span><span class="clbl">Unpredictable outcome</span><span class="csub">Hours or days — if at all</span></div></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">📭</span><span class="clbl">Lands in personal inbox</span><span class="chip ch-staff">Principal</span><span class="csub">OOO — unseen</span></div><div class="friction-badge fr-norecord">🔴 No record</div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">🤷</span><span class="clbl">No record of email</span><span class="chip ch-staff">Secretary</span><span class="csub">Responds inconsistently</span></div><div class="friction-badge fr-manual">⚠️ Manual</div></div>
+          <div class="cell bg-empty"></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📧</span><span class="chip ch-system">Gmail</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📭</span><span class="chip ch-system">Gmail — personal inbox</span><span class="csub">No shared queue</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🔇</span><span class="chip ch-system">No alert · No routing</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📲</span><span class="chip ch-system">VOIP inbound</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🔲</span><span class="chip ch-system">No context surfaced</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📝</span><span class="chip ch-system">No log created</span></div></div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📤</span><span class="clbl">Email sent</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">🕳️</span><span class="clbl">Email disappears</span><span class="csub">Into personal inbox silo</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">🔕</span><span class="clbl">No acknowledgment</span><span class="csub">Parent anxiety grows</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Phone call created</span><span class="csub">Now 2 open issues</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">⚡</span><span class="clbl">Inconsistent response</span><span class="csub">Varies school to school</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">❓</span><span class="clbl">Outcome unpredictable</span><span class="csub">No log either way</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics Generated at These Steps</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><div class="dm-label dm-empty">—</div></div>
+          <div class="dash-metric-cell"><span class="dm-icon">📧</span><span class="dm-label">Email Volume</span><span class="dm-metric">Untracked today</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⏱️</span><span class="dm-label">Response SLA</span><span class="dm-metric">No baseline exists</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🔁</span><span class="dm-label">Repeat Contact</span><span class="dm-metric">Step 4 — untracked</span></div>
+          <div class="dash-metric-cell"><div class="dm-label dm-empty">—</div></div>
+          <div class="dash-metric-cell"><span class="dm-icon">📉</span><span class="dm-label">FCR / Resolution</span><span class="dm-metric">Step 6 — 0% captured</span></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /channel 2 card -->
+
+  <!-- ────────────────────────────────────────────────────── -->
+  <!-- CHANNEL 3: COMPLAINT / CONCERN (Multi-touch) -->
+  <!-- ────────────────────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="sch-icon">🚶</span>
+      <span class="sch-title">Channel 3 — In-Person (Walk-in)</span>
+      <span class="sch-sub">Complaint / concern is an issue type, not a channel — shown here as the most common walk-in interaction</span>
+    </div>
+
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">⚠️</span>
+        <span class="jd-title">Walk-in: Complaint / Concern — Multi-touch Interaction</span>
+        <span class="jd-sub">Issue type: complaint · Parent walks in or calls repeatedly · No named owner · No SLA · No follow-up</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">Parent Raises Concern</div>
+        <div class="phase-cell ph-amber" style="flex:1">Vague Acknowledgment</div>
+        <div class="phase-cell ph-amber" style="flex:1">No Follow-up</div>
+        <div class="phase-cell ph-amber" style="flex:1">Parent Follows Up</div>
+        <div class="phase-cell ph-amber" style="flex:1">Escalation / Exit</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">😠</span><span class="clbl">Raises concern</span><span class="csub">Call · email · walk-in</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">⏳</span><span class="clbl">Waits for follow-up</span><span class="csub">Days pass · Nothing</span></div></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Follows up again</span><span class="csub">Restates everything</span></div><div class="friction-badge fr-repeat">🔁 Repeat</div></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">🚪</span><span class="clbl">Escalates or disenrolls</span><span class="csub">Feeling dismissed</span></div></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">👂</span><span class="clbl">Hears concern</span><span class="chip ch-staff">Any staff</span></div></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">🤔</span><span class="clbl">Vague acknowledgment</span><span class="chip ch-staff">Any staff</span><span class="csub">No owner assigned</span></div><div class="friction-badge fr-norecord">🔴 No owner</div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">🤷</span><span class="clbl">No record of prior contact</span><span class="chip ch-staff">Different staff</span></div><div class="friction-badge fr-manual">⚠️ Manual</div></div>
+          <div class="cell bg-empty"></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">❓</span><span class="chip ch-system">Any channel</span><span class="csub">Phone · email · in person</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🗒️</span><span class="chip ch-system">Sticky note / memory</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🔇</span><span class="chip ch-system">No SLA tracking</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">🔲</span><span class="chip ch-system">No shared history</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📉</span><span class="chip ch-system">No pattern data</span></div></div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📝</span><span class="clbl">Concern raised</span><span class="csub">No intake record</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">🌫️</span><span class="clbl">No owner · No SLA</span><span class="csub">No required fields</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">⌛</span><span class="clbl">SLA breach invisible</span><span class="csub">Leadership cannot see</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">🔄</span><span class="clbl">Parent starts over</span><span class="csub">Staff start from zero</span></div></div>
+          <div class="cell bg-friction"><div class="cell-in"><span class="ci">🚪</span><span class="clbl">Complaint → Withdrawal</span><span class="csub">No intervention possible</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics Generated at These Steps</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><span class="dm-icon">📋</span><span class="dm-label">Walk-in Volume</span><span class="dm-metric">Completely unknown</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">👤</span><span class="dm-label">Owner Assignment</span><span class="dm-metric">No data exists</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⏱️</span><span class="dm-label">Resolution SLA</span><span class="dm-metric">No baseline</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🔁</span><span class="dm-label">Contacts per Issue</span><span class="dm-metric">Untracked</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🚪</span><span class="dm-label">Complaint → Withdrawal</span><span class="dm-metric">Unmeasurable today</span></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /channel 3 card -->
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="legend-group-label">Lanes</span>
+    <div class="legend-group">
+      <div class="legend-item"><div class="legend-dot" style="background:#EBF4FD;border:1px solid #93c5fd"></div><span>Parent action</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#EDFAF4;border:1px solid #6ee7b7"></div><span>Staff action</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FEF9EC;border:1px solid #fcd34d"></div><span>System / platform</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FDF0F7;border:1px solid #f9a8d4"></div><span>Output</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FEF2F2;border:1px solid #fca5a5"></div><span>Failure / friction output</span></div>
+    </div>
+    <div class="legend-sep"></div>
+    <span class="legend-group-label">Friction flags</span>
+    <div class="legend-group">
+      <span class="fr-legend fr-manual">⚠️ Manual gap</span>
+      <span class="fr-legend fr-norecord">🔴 No record / owner</span>
+      <span class="fr-legend fr-repeat">🔁 Duplicate effort</span>
+    </div>
+  </div>
+
+</div><!-- /tab-current -->
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TAB 2: WITH PEP -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="tab-pep" class="tab-content">
+
+  <!-- ────────────────────────────────────────────────────── -->
+  <!-- CHANNEL 1: INBOUND CALL — PEP STATE -->
+  <!-- ────────────────────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="sch-icon">📞</span>
+      <span class="sch-title">Channel 1 — Inbound Call</span>
+      <span class="sch-sub">Two branches: Attendance reporting · General inquiry / discipline callback</span>
+    </div>
+
+    <!-- BRANCH A: ATTENDANCE PEP -->
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">📅</span>
+        <span class="jd-title">Branch A — Attendance Reporting</span>
+        <span class="jd-sub">IVR routes call → VM → HubSpot ticket auto-created → Auto-email confirmation to parent</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP July</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">IVR Routing</div>
+        <div class="phase-cell ph-teal" style="flex:1">VM → Ticket</div>
+        <div class="phase-cell ph-teal" style="flex:1">Auto Confirm</div>
+        <div class="phase-cell ph-green" style="flex:1">Staff Action</div>
+        <div class="phase-cell ph-green" style="flex:1">Ticket Closed</div>
+        <div class="phase-cell ph-green" style="flex:1">Loop Closed</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div><div class="step-num">6</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Calls school</span><span class="csub">IVR routes to attendance</span></div></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">🎙️</span><span class="clbl">Leaves voicemail</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✉️</span><span class="clbl">Receives auto-email</span><span class="csub">"We got your message"</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✅</span><span class="clbl">No callback needed</span><span class="csub">Loop closed</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📋</span><span class="clbl">Works shared queue</span><span class="chip ch-staff">Registrar</span><span class="csub">Owned · SLA'd</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✏️</span><span class="clbl">Marks attendance in PS</span><span class="chip ch-staff">Registrar</span><span class="csub">Closes ticket</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell bg-empty"></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🌳</span><span class="chip ch-system">Managed365 IVR</span><span class="csub">Campus-specific routing</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🔗</span><span class="chip ch-system">VOIP → HubSpot</span><span class="csub">VM auto-logged</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">⚡</span><span class="chip ch-system">HubSpot automation</span><span class="csub">Ticket + auto-email</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📊</span><span class="chip ch-system">HubSpot queue</span><span class="csub">Owned · SLA visible</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">✏️</span><span class="chip ch-system">PowerSchool</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✅</span><span class="chip ch-system">HubSpot ticket closed</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🌳</span><span class="clbl">Routed to attendance</span><span class="csub">No manual transfer</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🎫</span><span class="clbl">Ticket auto-created</span><span class="csub">Owner assigned · SLA'd</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">✉️</span><span class="clbl">Parent confirmed</span><span class="csub">Same moment</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📋</span><span class="clbl">Queue worked by SLA</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">✅</span><span class="clbl">Absence in PS</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🎉</span><span class="clbl">No repeat call</span><span class="csub">Trust maintained</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics — Now Captured in HubSpot + Managed365</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><span class="dm-icon">📵</span><span class="dm-label">Abandonment Rate</span><span class="dm-metric">Managed365 · ASA</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🎫</span><span class="dm-label">Ticket Creation %</span><span class="dm-metric">HubSpot auto-log</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⏱️</span><span class="dm-label">VM Response SLA</span><span class="dm-metric">HubSpot aging</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">📊</span><span class="dm-label">Queue Adherence</span><span class="dm-metric">HubSpot SLA view</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">✅</span><span class="dm-label">FCR Rate</span><span class="dm-metric">Ticket closed step 5</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🔁</span><span class="dm-label">Repeat Contact Rate</span><span class="dm-metric">HubSpot contact history</span></div>
+        </div>
+      </div>
+    </div><!-- /branch A PEP -->
+
+    <!-- BRANCH B: DISCIPLINE CALLBACK PEP -->
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">📣</span>
+        <span class="jd-title">Branch B — General Inquiry &amp; Discipline Callback</span>
+        <span class="jd-sub">Screen pop surfaces open ticket + script · Front office becomes informed responder</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP July</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">Outbound Attempt</div>
+        <div class="phase-cell ph-teal" style="flex:1">VM → Ticket</div>
+        <div class="phase-cell ph-teal" style="flex:1">Parent Calls Back</div>
+        <div class="phase-cell ph-green" style="flex:1">Screen Pop</div>
+        <div class="phase-cell ph-green" style="flex:1">Informed Response</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📵</span><span class="clbl">Misses school call</span></div></div>
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Calls back</span><span class="csub">Reaches front office</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">😌</span><span class="clbl">Gets context + timeline</span><span class="csub">"Principal will follow up by [date]"</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Principal calls parent</span><span class="chip ch-staff">Principal</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🎫</span><span class="clbl">Call attempt logged</span><span class="chip ch-staff">Principal</span><span class="csub">Ticket opened auto</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🖥️</span><span class="clbl">Screen pop fires</span><span class="chip ch-staff">Secretary</span><span class="csub">Open ticket visible</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">💬</span><span class="clbl">Reads script · Updates ticket</span><span class="chip ch-staff">Secretary</span><span class="csub">Owner notified</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📲</span><span class="chip ch-system">Managed365 outbound</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🔗</span><span class="chip ch-system">VOIP → HubSpot</span><span class="csub">Call logged + ticket</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📲</span><span class="chip ch-system">Managed365 inbound</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🖥️</span><span class="chip ch-system">HubSpot screen pop</span><span class="csub">Caller ID → record match</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📓</span><span class="chip ch-system">HubSpot workbook</span><span class="csub">Script + guardrails</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+        </div>
+      </div>
+      <!-- Screen pop detail -->
+      <div class="lane" style="background:#f0fdfb;">
+        <div class="lane-label" style="background:#e0f4f4;border-right-color:var(--teal);">
+          <span class="ll-icon">🖥️</span>
+          <span class="ll-txt" style="color:var(--teal-dk)">Screen Pop Detail</span>
+        </div>
+        <div class="lane-cells">
+          <div class="cell bg-empty" style="flex:1"></div>
+          <div class="cell bg-empty" style="flex:1"></div>
+          <div class="cell bg-empty" style="flex:1"></div>
+          <div class="cell" style="background:#e0f4f4;flex:2;border-left:2px solid var(--teal)">
+            <div class="cell-in" style="align-items:flex-start;padding:4px 6px;">
+              <span style="font-size:9px;font-weight:700;color:var(--teal-dk);letter-spacing:.04em;">STAFF SEES — HubSpot screen pop</span>
+              <span style="font-size:9px;color:var(--navy-md);line-height:1.4;margin-top:2px;">📌 Open: Discipline issue<br>📞 Principal called — no answer<br>📋 Script: "Principal will follow up by [date]"<br>👤 Caller ID matched to parent record</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Call logged</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🎫</span><span class="clbl">Ticket opened</span><span class="csub">Owned · SLA assigned</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📳</span><span class="clbl">Front office receives call</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🖥️</span><span class="clbl">Context surfaced instantly</span><span class="csub">No manual search</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">😌</span><span class="clbl">Parent informed + calm</span><span class="csub">Issue tracked · Owner notified</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics — Now Captured in HubSpot + Managed365</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><span class="dm-icon">📞</span><span class="dm-label">Outbound Attempt Rate</span><span class="dm-metric">HubSpot call log</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🎫</span><span class="dm-label">Ticket Auto-Create %</span><span class="dm-metric">HubSpot automation</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🖥️</span><span class="dm-label">Screen Pop Match Rate</span><span class="dm-metric">Caller ID resolution</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⏱️</span><span class="dm-label">Time to Callback</span><span class="dm-metric">Ticket timestamp delta</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">✅</span><span class="dm-label">FCR Rate</span><span class="dm-metric">Ticket closure step 5</span></div>
+        </div>
+      </div>
+    </div><!-- /branch B PEP -->
+  </div><!-- /channel 1 PEP card -->
+
+  <!-- ────────────────────────────────────────────────────── -->
+  <!-- CHANNEL 2: EMAIL — PEP STATE -->
+  <!-- ────────────────────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="sch-icon">📧</span>
+      <span class="sch-title">Channel 2 — Email</span>
+      <span class="sch-sub">Shared queue replaces personal inbox · ParentSquare context + HubSpot workbook scripting</span>
+    </div>
+
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">🔒</span>
+        <span class="jd-title">Safety / Hold Inquiry (Email)</span>
+        <span class="jd-sub">Email → HubSpot shared queue → Secretary sees ParentSquare context → Scripted guardrailed reply in ~2 hrs</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP July</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">Parent Sends</div>
+        <div class="phase-cell ph-teal" style="flex:1">Shared Queue</div>
+        <div class="phase-cell ph-teal" style="flex:1">Secretary Picks Up</div>
+        <div class="phase-cell ph-teal" style="flex:1">Context Surfaced</div>
+        <div class="phase-cell ph-green" style="flex:1">Scripted Reply</div>
+        <div class="phase-cell ph-green" style="flex:1">Logged + Closed</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div><div class="step-num">6</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">📧</span><span class="clbl">Emails principal</span><span class="csub">Same entry point</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✉️</span><span class="clbl">Receives reply within 2 hrs</span><span class="csub">Informed · Reassured</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+          <div class="cell bg-empty"></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📋</span><span class="clbl">Picks up from queue</span><span class="chip ch-staff">Secretary</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🔍</span><span class="clbl">Reviews PS context + script</span><span class="chip ch-staff">Secretary</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">💬</span><span class="clbl">Sends scripted reply</span><span class="chip ch-staff">Secretary</span><span class="csub">Approved guardrailed msg</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✅</span><span class="clbl">Closes ticket · Logs outcome</span><span class="chip ch-staff">Secretary</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">📧</span><span class="chip ch-system">Gmail (inbound)</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📥</span><span class="chip ch-system">HubSpot shared queue</span><span class="csub">No inbox silo</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">⏰</span><span class="chip ch-system">HubSpot SLA timer</span><span class="csub">Owner assigned</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">🔗</span><span class="chip ch-system">ParentSquare + HubSpot</span><span class="csub">HOLD msg context</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📓</span><span class="chip ch-system">HubSpot workbook</span><span class="csub">Script · FAQ · Guardrails</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📊</span><span class="chip ch-system">HubSpot ticket closed</span><span class="csub">Topic + outcome logged</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+        </div>
+      </div>
+      <!-- Context detail row -->
+      <div class="lane" style="background:#f0fdfb;">
+        <div class="lane-label" style="background:#e0f4f4;border-right-color:var(--teal);">
+          <span class="ll-icon">🔍</span>
+          <span class="ll-txt" style="color:var(--teal-dk)">Context Detail</span>
+        </div>
+        <div class="lane-cells">
+          <div class="cell bg-empty" style="flex:2"></div>
+          <div class="cell" style="background:#e0f4f4;flex:2;border-left:2px solid var(--teal)">
+            <div class="cell-in" style="align-items:flex-start;padding:4px 6px;">
+              <span style="font-size:9px;font-weight:700;color:var(--teal-dk);letter-spacing:.04em;">STAFF SEES — ParentSquare context</span>
+              <span style="font-size:9px;color:var(--navy-md);line-height:1.4;margin-top:2px;">📌 HOLD message sent yesterday<br>📬 Delivered: 847 of 902<br>📋 Exact message text visible</span>
+            </div>
+          </div>
+          <div class="cell" style="background:#e8faf2;flex:2;border-left:2px solid var(--green)">
+            <div class="cell-in" style="align-items:flex-start;padding:4px 6px;">
+              <span style="font-size:9px;font-weight:700;color:#065f46;letter-spacing:.04em;">SAYS — HubSpot Workbook</span>
+              <span style="font-size:9px;color:var(--navy-md);line-height:1.4;margin-top:2px;">✅ Approved HOLD response script<br>🛡️ Guardrail: Do not confirm details<br>📋 "The situation is resolved."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📤</span><span class="clbl">Email sent</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📥</span><span class="clbl">Captured in shared queue</span><span class="csub">Not lost in inbox</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">⏰</span><span class="clbl">SLA timer starts</span><span class="csub">Owner assigned</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🔍</span><span class="clbl">Full context visible</span><span class="csub">ParentSquare + script</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">✉️</span><span class="clbl">Templated reply sent ~2hrs</span><span class="csub">Parent informed</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📊</span><span class="clbl">Full interaction logged</span><span class="csub">Topic · script · outcome</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics — Now Captured in HubSpot</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><span class="dm-icon">📧</span><span class="dm-label">Email Volume</span><span class="dm-metric">HubSpot queue · by campus</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⏱️</span><span class="dm-label">Response SLA</span><span class="dm-metric">Step 2→5 timestamp</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">👤</span><span class="dm-label">Owner Assignment Rate</span><span class="dm-metric">HubSpot ticket owner</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">📋</span><span class="dm-label">Script Usage Rate</span><span class="dm-metric">Workbook · per category</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">✅</span><span class="dm-label">FCR Rate</span><span class="dm-metric">Single-touch resolution</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">📊</span><span class="dm-label">Disposition Taxonomy</span><span class="dm-metric">Why parents emailed us</span></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /channel 2 PEP card -->
+
+  <!-- ────────────────────────────────────────────────────── -->
+  <!-- CHANNEL 3: COMPLAINT — PEP STATE -->
+  <!-- ────────────────────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="sch-icon">🚶</span>
+      <span class="sch-title">Channel 3 — In-Person (Walk-in)</span>
+      <span class="sch-sub">Complaint / concern shown as example issue type · Structured intake · Named owner · SLA · Escalation routing</span>
+    </div>
+
+    <div class="journey-block">
+      <div class="journey-divider">
+        <span class="jd-icon">⚠️</span>
+        <span class="jd-title">Walk-in: Complaint / Concern — Structured Intake</span>
+        <span class="jd-sub">Issue type: complaint · HubSpot intake form · Required fields · Named owner · Aging alerts · Leadership dashboard</span>
+        <div class="jd-line"></div>
+        <span class="jd-badge jd-v1">V1 · MVP July</span>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-cell ph-teal" style="flex:1">Concern Raised</div>
+        <div class="phase-cell ph-teal" style="flex:1">Intake Created</div>
+        <div class="phase-cell ph-teal" style="flex:1">Owner Assigned</div>
+        <div class="phase-cell ph-green" style="flex:1">SLA Follow-up</div>
+        <div class="phase-cell ph-green" style="flex:1">Resolution</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">1</div><div class="step-num">2</div>
+        <div class="step-num">3</div><div class="step-num">4</div>
+        <div class="step-num">5</div>
+      </div>
+
+      <!-- Parent -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">👤</span><span class="ll-txt">Parent</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-parent"><div class="cell-in"><span class="ci">😠</span><span class="clbl">Raises concern</span><span class="csub">Any channel</span></div></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell bg-empty"></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📬</span><span class="clbl">Receives named follow-up</span><span class="csub">Within defined SLA</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✅</span><span class="clbl">Concern resolved</span><span class="csub">Real answer · Named owner</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+        </div>
+      </div>
+      <!-- Staff -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">🏢</span><span class="ll-txt">Staff</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-staff"><div class="cell-in"><span class="ci">👂</span><span class="clbl">Hears concern</span><span class="chip ch-staff">Any staff</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📋</span><span class="clbl">Fills intake form</span><span class="chip ch-staff">Any staff</span><span class="csub">Category · Severity</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">👤</span><span class="clbl">Owner assigned</span><span class="chip ch-staff">Named staff</span><span class="csub">SLA clock starts</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📞</span><span class="clbl">Named follow-up to parent</span><span class="chip ch-staff">Owner</span><span class="pep-new-badge pep-badge-dpv">Direct Value</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">✅</span><span class="clbl">Logs resolution</span><span class="chip ch-staff">Owner</span><span class="csub">Notes + outcome required</span><span class="pep-new-badge pep-badge-fnd">Foundation</span></div></div>
+        </div>
+      </div>
+      <!-- System -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">💻</span><span class="ll-txt">System</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-system"><div class="cell-in"><span class="ci">❓</span><span class="chip ch-system">Any channel</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📋</span><span class="chip ch-system">HubSpot intake</span><span class="csub">Required fields enforced</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">⚡</span><span class="chip ch-system">HubSpot routing</span><span class="csub">Escalation by severity</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">⏰</span><span class="chip ch-system">HubSpot SLA + aging alert</span><span class="csub">Leader sees breach</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+          <div class="cell cell-pep-new"><div class="cell-in"><span class="ci">📊</span><span class="chip ch-system">HubSpot pipeline</span><span class="csub">Resolved · Logged</span><span class="pep-new-badge pep-badge-v1">V1 NEW</span></div></div>
+        </div>
+      </div>
+      <!-- Output -->
+      <div class="lane">
+        <div class="lane-label"><span class="ll-icon">📤</span><span class="ll-txt">Output</span></div>
+        <div class="lane-cells">
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📝</span><span class="clbl">Concern raised</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">🎫</span><span class="clbl">Structured intake record</span><span class="csub">Category · severity · fields</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">👤</span><span class="clbl">Named owner + SLA</span><span class="csub">Leader dashboard visible</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📬</span><span class="clbl">Parent contacted within SLA</span></div></div>
+          <div class="cell bg-output"><div class="cell-in"><span class="ci">📊</span><span class="clbl">Resolution pattern data</span><span class="csub">Feeds leadership report</span></div></div>
+        </div>
+      </div>
+      <!-- Dashboard metrics -->
+      <div class="dash-section-header"><div class="ds-line"></div><span>📊 Dashboard Metrics — Walk-in Interactions + Complaint Issue Type · Captured in HubSpot</span><div class="ds-line"></div></div>
+      <div style="display:flex;">
+        <div class="dash-lane-label"><span class="dl-icon">📊</span><span class="dl-txt">Metrics</span></div>
+        <div class="dash-metrics-row" style="flex:1;">
+          <div class="dash-metric-cell"><span class="dm-icon">🚶</span><span class="dm-label">Walk-in Volume</span><span class="dm-metric">By campus · by issue type</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⚡</span><span class="dm-label">Severity Distribution</span><span class="dm-metric">HubSpot intake field</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">👤</span><span class="dm-label">Owner Assignment Rate</span><span class="dm-metric">% complaints with owner</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">⏱️</span><span class="dm-label">Resolution SLA</span><span class="dm-metric">Actual vs. target · aging</span></div>
+          <div class="dash-metric-cell"><span class="dm-icon">🔁</span><span class="dm-label">Complaint → Withdrawal</span><span class="dm-metric">Link to PS withdrawal data</span></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /channel 3 PEP card -->
+
+  <!-- ────────────────────────────────────────────────────── -->
+  <!-- FUTURE PHASES — V3 OUT OF SCOPE CALLOUT -->
+  <!-- ────────────────────────────────────────────────────── -->
+  <div class="section-card" style="opacity:.75;">
+    <div class="section-card-header" style="background:#374151;">
+      <span class="sch-icon">🔭</span>
+      <span class="sch-title" style="color:#d1d5db;">Future Phases — Not in July MVP</span>
+      <span class="sch-sub">Shown for roadmap context only</span>
+    </div>
+    <div style="display:flex;gap:0;">
+      <div style="flex:1;padding:14px 16px;border-right:1px solid #e2e8f0;">
+        <div style="font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">V2 — Workflows (Oct 2026)</div>
+        <div style="font-size:11px;color:#374151;line-height:1.6;">
+          📊 ParentSquare integration (full)<br>
+          🔍 V2 Screen pop with additional context<br>
+          🔄 Workflow automation discovery<br>
+          📋 Structured RCA review cadence
+        </div>
+      </div>
+      <div style="flex:1;padding:14px 16px;">
+        <div style="font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">V3 — Transform (Jan 2027)</div>
+        <div style="font-size:11px;color:#374151;line-height:1.6;">
+          🌐 Non-English / multilingual routing<br>
+          📁 Enrollment handoff continuity<br>
+          🤖 Enhanced IVR + self-service<br>
+          📈 Full parent 360° context
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PANEL -->
+  <div class="dashboard-panel">
+    <div class="dp-header">
+      <span style="font-size:20px;">📊</span>
+      <h3>Day-One Operational Dashboards — 23 Reports</h3>
+      <span class="dp-sub">All sourced from HubSpot + Managed365 · Available at MVP launch · Internal staff-side only</span>
+    </div>
+
+    <!-- GROUP 1: TICKET REPORTS -->
+    <div style="padding:10px 16px 4px;background:#1a1040;border-top:1px solid #2d1f6e;">
+      <span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7c6fab;">Ticket Reports</span>
+    </div>
+    <div class="dp-grid">
+      <div class="dp-metric">
+        <span class="dp-metric-icon">📈</span>
+        <div class="dp-metric-name">Ticket Totals Over Time</div>
+        <div class="dp-metric-desc">Volume of tickets created per day/week/month. Establishes baseline and tracks trend. Surfaces seasonal spikes and growth patterns.</div>
+        <div class="dp-metric-source">Source: HubSpot Service Hub</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Trend</span><span class="dp-chip">Volume baseline</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">⏱️</span>
+        <div class="dp-metric-name">Ticket Avg Response Time by Source</div>
+        <div class="dp-metric-desc">Mean time to first response broken down by channel — call, email, voicemail. Identifies which channel has the largest SLA gap at launch.</div>
+        <div class="dp-metric-source">Source: HubSpot ticket + source field</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Avg response</span><span class="dp-chip">By channel</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🗂️</span>
+        <div class="dp-metric-name">Ticket Totals by Category</div>
+        <div class="dp-metric-desc">Breakdown of tickets by issue type — attendance, complaint, general, discipline, etc. Drives the disposition taxonomy and deflection targeting.</div>
+        <div class="dp-metric-source">Source: HubSpot ticket category field</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Disposition</span><span class="dp-chip">Pareto</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🚦</span>
+        <div class="dp-metric-name">Ticket Totals by Status</div>
+        <div class="dp-metric-desc">Open, in-progress, pending, closed — at any point in time. Surfaces queue depth and identifies where tickets are stalling in the workflow.</div>
+        <div class="dp-metric-source">Source: HubSpot pipeline status</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Open</span><span class="dp-chip">Closed</span><span class="dp-chip">Stalled</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">📡</span>
+        <div class="dp-metric-name">Ticket Totals by Source</div>
+        <div class="dp-metric-desc">How tickets entered the system — inbound call, email, voicemail, walk-in. Shows channel distribution across all 22 campuses.</div>
+        <div class="dp-metric-source">Source: HubSpot source field</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Channel split</span><span class="dp-chip">By source</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🏫</span>
+        <div class="dp-metric-name">Tickets by Campus</div>
+        <div class="dp-metric-desc">Total ticket volume per campus. Highlights load imbalance across the 22 schools. Required for per-campus SLA reporting and staffing decisions.</div>
+        <div class="dp-metric-source">Source: HubSpot campus property</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Per campus</span><span class="dp-chip">Comparative</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">💬</span>
+        <div class="dp-metric-name">Tickets by Contact Reason</div>
+        <div class="dp-metric-desc">Why parents are actually contacting us — at the disposition level, not just source. The primary data output of the CRM that doesn't exist today.</div>
+        <div class="dp-metric-source">Source: HubSpot disposition / contact reason field</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Why they called</span><span class="dp-chip">Pareto</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">📚</span>
+        <div class="dp-metric-name">Most Viewed Knowledge Articles</div>
+        <div class="dp-metric-desc">Which HubSpot workbook articles staff reference most during interactions. Informs knowledge base prioritization and identifies gaps in scripting coverage.</div>
+        <div class="dp-metric-source">Source: HubSpot Knowledge Base analytics</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Script usage</span><span class="dp-chip">KB coverage</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🔖</span>
+        <div class="dp-metric-name">Tickets by Resolution Category</div>
+        <div class="dp-metric-desc">How tickets were resolved — answered, escalated, transferred, no response needed. Tracks resolution quality and escalation patterns over time.</div>
+        <div class="dp-metric-source">Source: HubSpot resolution field</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Resolution type</span><span class="dp-chip">Escalation %</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">⏳</span>
+        <div class="dp-metric-name">Open Ticket Age Distribution</div>
+        <div class="dp-metric-desc">How long open tickets have been sitting — bucketed by age (0–4hr, 4–24hr, 24hr+). Leadership aging view for SLA breach intervention.</div>
+        <div class="dp-metric-source">Source: HubSpot ticket create date vs. now</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Aging</span><span class="dp-chip">SLA breach</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">👤</span>
+        <div class="dp-metric-name">Follow-up Required Tickets by Owner</div>
+        <div class="dp-metric-desc">Open tickets flagged for follow-up, grouped by assigned staff member. Primary accountability tool for campus leaders reviewing team performance.</div>
+        <div class="dp-metric-source">Source: HubSpot owner + follow-up flag</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Accountability</span><span class="dp-chip">By owner</span></div>
+      </div>
+    </div>
+
+    <!-- GROUP 2: INTERACTION VOLUME -->
+    <div style="padding:10px 16px 4px;background:#1a1040;border-top:2px solid #2d1f6e;">
+      <span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7c6fab;">Interaction Volume Reports</span>
+    </div>
+    <div class="dp-grid">
+      <div class="dp-metric">
+        <span class="dp-metric-icon">📊</span>
+        <div class="dp-metric-name">All Interaction Volume by Time</div>
+        <div class="dp-metric-desc">Total interactions (calls + emails + voicemails) plotted over time. Master volume trend used for staffing and seasonal planning across all 22 campuses.</div>
+        <div class="dp-metric-source">Source: HubSpot + Managed365 combined</div>
+        <div class="dp-metric-chips"><span class="dp-chip">All channels</span><span class="dp-chip">Time series</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🔀</span>
+        <div class="dp-metric-name">All Interaction Volume by Type</div>
+        <div class="dp-metric-desc">Stacked breakdown of interaction type — inbound call, outbound call, email, voicemail, walk-in. Shows channel mix and shift over time post-CRM.</div>
+        <div class="dp-metric-source">Source: HubSpot interaction type field</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Channel mix</span><span class="dp-chip">Type split</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🔄</span>
+        <div class="dp-metric-name">Interaction Volume by Lifecycle Stage</div>
+        <div class="dp-metric-desc">Volume segmented by where the contact sits in the parent lifecycle — prospective, enrolled, active, at-risk, withdrawn. Enables retention signal detection.</div>
+        <div class="dp-metric-source">Source: HubSpot contact lifecycle + PS sync</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Lifecycle</span><span class="dp-chip">At-risk signal</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🏫</span>
+        <div class="dp-metric-name">Contact Volume vs. Enrollment by Campus</div>
+        <div class="dp-metric-desc">Contacts per enrolled student — the calls/student ratio that revealed the process vs. capacity split. Tracks whether the rate gap closes post-CRM.</div>
+        <div class="dp-metric-source">Source: HubSpot volume + PS enrollment count</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Calls/student</span><span class="dp-chip">Equity check</span></div>
+      </div>
+    </div>
+
+    <!-- GROUP 3: CALL-SPECIFIC -->
+    <div style="padding:10px 16px 4px;background:#1a1040;border-top:2px solid #2d1f6e;">
+      <span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7c6fab;">Call Reports (Managed365 + HubSpot)</span>
+    </div>
+    <div class="dp-grid">
+      <div class="dp-metric">
+        <span class="dp-metric-icon">📞</span>
+        <div class="dp-metric-name">Inbound Call Volume Over Time</div>
+        <div class="dp-metric-desc">Daily/weekly inbound call counts by campus. Baseline for the ~341K annual call estimate. Surfaces July peak and seasonal patterns for staffing.</div>
+        <div class="dp-metric-source">Source: Managed365 CDR + HubSpot</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Inbound</span><span class="dp-chip">By campus</span><span class="dp-chip">Seasonal</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">📤</span>
+        <div class="dp-metric-name">Outbound Calls</div>
+        <div class="dp-metric-desc">Staff-initiated calls — principal callbacks, follow-ups, proactive outreach. Tracks whether outbound attempts are being logged and linked to open tickets.</div>
+        <div class="dp-metric-source">Source: Managed365 CDR + HubSpot call log</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Outbound</span><span class="dp-chip">Callback rate</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🔁</span>
+        <div class="dp-metric-name">Repeat Calls by Issue Type</div>
+        <div class="dp-metric-desc">Parents calling back on the same issue — segmented by contact reason. The single clearest signal that a workflow is failing. V1 baseline; V2 targets reduction.</div>
+        <div class="dp-metric-source">Source: HubSpot contact history + issue type</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Repeat contact</span><span class="dp-chip">FCR proxy</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🕐</span>
+        <div class="dp-metric-name">Call Volume Intervals (Intraday &amp; Weekly)</div>
+        <div class="dp-metric-desc">Call volume by hour of day and day of week — the intraday pattern needed for queue staffing decisions. Identifies peak windows for secretary scheduling.</div>
+        <div class="dp-metric-source">Source: Managed365 CDR timestamps</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Intraday</span><span class="dp-chip">Queue staffing</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🗣️</span>
+        <div class="dp-metric-name">IRL (In-Person) Volume Over Time</div>
+        <div class="dp-metric-desc">Walk-in interactions logged by staff in HubSpot. Requires staff to log — adoption rate of this channel will indicate training effectiveness in V1.</div>
+        <div class="dp-metric-source">Source: HubSpot manual log (walk-in type)</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Walk-in</span><span class="dp-chip">Staff adoption</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">📧</span>
+        <div class="dp-metric-name">Email Volume Over Time</div>
+        <div class="dp-metric-desc">Inbound emails into shared HubSpot queue by campus and week. First time email volume will be reliably captured. Baseline for the ~70/school/week estimate.</div>
+        <div class="dp-metric-source">Source: HubSpot shared inbox</div>
+        <div class="dp-metric-chips"><span class="dp-chip">Email queue</span><span class="dp-chip">Volume trend</span></div>
+      </div>
+    </div>
+
+    <!-- GROUP 4: PERFORMANCE & STRATEGIC -->
+    <div style="padding:10px 16px 4px;background:#1a1040;border-top:2px solid #2d1f6e;">
+      <span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7c6fab;">Performance &amp; Strategic Reports</span>
+    </div>
+    <div class="dp-grid">
+      <div class="dp-metric">
+        <span class="dp-metric-icon">🏁</span>
+        <div class="dp-metric-name">Average Time to First Response by Campus</div>
+        <div class="dp-metric-desc">Mean minutes/hours from ticket creation to first staff response — per campus. The primary SLA metric. Benchmarks against the 4-hour email / same-day call targets.</div>
+        <div class="dp-metric-source">Source: HubSpot ticket timestamps by campus</div>
+        <div class="dp-metric-chips"><span class="dp-chip">SLA</span><span class="dp-chip">Per campus</span><span class="dp-chip">Benchmark</span></div>
+      </div>
+      <div class="dp-metric">
+        <span class="dp-metric-icon">⭐</span>
+        <div class="dp-metric-name">NPS Score Trend</div>
+        <div class="dp-metric-desc">Net Promoter Score over time — the strategic outcome metric. V1 won't move this needle directly, but establishes the baseline the entire roadmap is measured against.</div>
+        <div class="dp-metric-source">Source: NPS survey data (external) → HubSpot</div>
+        <div class="dp-metric-chips"><span class="dp-chip">NPS</span><span class="dp-chip">Outcome baseline</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="legend-group-label">Lanes</span>
+    <div class="legend-group">
+      <div class="legend-item"><div class="legend-dot" style="background:#EBF4FD;border:1px solid #93c5fd"></div><span>Parent action</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#EDFAF4;border:1px solid #6ee7b7"></div><span>Staff action</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FEF9EC;border:1px solid #fcd34d"></div><span>System / platform</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FDF0F7;border:1px solid #f9a8d4"></div><span>Output</span></div>
+    </div>
+    <div class="legend-sep"></div>
+    <span class="legend-group-label">PEP Changes</span>
+    <div class="legend-group">
+      <div class="legend-item"><div class="pep-legend-bar"></div><span>V1 · MVP July — new step</span></div>
+      <div class="legend-item"><div class="pep-legend-bar-v2"></div><span>V2 · Oct 2026</span></div>
+      <div class="legend-item"><div class="pep-legend-bar-v3"></div><span>V3 · Future</span></div>
+    </div>
+    <div class="legend-sep"></div>
+    <span class="legend-group-label">Capability Labels</span>
+    <div class="legend-group">
+      <div class="legend-item"><span class="pep-new-badge pep-badge-fnd">Foundation</span><span style="margin-left:4px;">Infrastructure — not yet visible to parent</span></div>
+      <div class="legend-item"><span class="pep-new-badge pep-badge-dpv">Direct Value</span><span style="margin-left:4px;">Parent experiences a change</span></div>
+      <div class="legend-item"><span class="pep-new-badge pep-badge-v1">V1 NEW</span><span style="margin-left:4px;">System is new or replaced</span></div>
+    </div>
+  </div>
+
+</div><!-- /tab-pep -->
+
+<div class="page-footer" style="margin-top:20px;">Vertex Education &nbsp;|&nbsp; Parent Experience Project &nbsp;|&nbsp; Deep Dive — Engineers · BI · PM &nbsp;|&nbsp; May 2026</div>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    const btns = document.querySelectorAll('.tab-btn');
+    if (tab === 'current') btns[0].classList.add('active');
+    else btns[1].classList.add('active');
+  }
+</script>
+</body>
+</html>
